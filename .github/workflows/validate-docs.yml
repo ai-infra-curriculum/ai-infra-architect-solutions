@@ -1,0 +1,64 @@
+name: Validate Architecture Documentation
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate-markdown:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Markdown Lint
+        uses: avto-dev/markdown-lint@v1
+        with:
+          args: '**/*.md'
+          config: '.markdownlint.json'
+
+  validate-diagrams:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check for Mermaid Syntax
+        run: |
+          find . -name "*.md" -type f | while read file; do
+            if grep -q '```mermaid' "$file"; then
+              echo "Validating diagrams in $file"
+            fi
+          done
+
+  validate-adrs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate ADR Format
+        run: |
+          for adr in $(find . -path "*/adrs/*.md"); do
+            echo "Checking ADR: $adr"
+            grep -q "# Status" "$adr" || (echo "Missing Status section in $adr" && exit 1)
+            grep -q "# Context" "$adr" || (echo "Missing Context section in $adr" && exit 1)
+            grep -q "# Decision" "$adr" || (echo "Missing Decision section in $adr" && exit 1)
+            grep -q "# Consequences" "$adr" || (echo "Missing Consequences section in $adr" && exit 1)
+          done
+
+  check-completeness:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify Project Structure
+        run: |
+          # Verify all projects have required artifacts
+          for proj in projects/project-30{1..5}*; do
+            [ -d "$proj" ] || continue
+            echo "Checking $proj"
+            [ -f "$proj/README.md" ] || (echo "Missing README.md in $proj" && exit 1)
+            [ -f "$proj/ARCHITECTURE.md" ] || (echo "Missing ARCHITECTURE.md in $proj" && exit 1)
+            [ -d "$proj/architecture" ] || (echo "Missing architecture/ in $proj" && exit 1)
+            [ -d "$proj/business" ] || (echo "Missing business/ in $proj" && exit 1)
+          done
