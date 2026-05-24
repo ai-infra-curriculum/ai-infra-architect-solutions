@@ -226,7 +226,7 @@ operate physical infrastructure that touches PHI.
 ### Breach response
 
 A suspected PHI breach triggers the HIPAA incident runbook in
-[`../runbooks/troubleshooting.md`](../../runbooks/troubleshooting.md) §scenario
+[`../runbooks/troubleshooting.md`](../runbooks/troubleshooting.md) §scenario
 "HIPAA-suspected access pattern". HIPAA Privacy Officer is paged within 1
 hour. Notifications to affected individuals and HHS OCR follow the 60-day rule
 (or 500+ individuals → media notice).

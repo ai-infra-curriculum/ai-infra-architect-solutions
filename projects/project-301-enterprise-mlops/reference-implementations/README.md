@@ -414,7 +414,7 @@ Internal use only. Proprietary and confidential.
 - [ADRs](../architecture/adrs/) - Architecture decision records
 - [Business Case](../business/business-case.md) - Financial analysis
 - [Governance](../governance/) - Governance frameworks
-- [Deployment Guide](../docs/runbooks/deployment-guide.md) - Step-by-step deployment
+- [Deployment Guide](../runbooks/deployment-guide.md) - Step-by-step deployment
 
 ---
 
