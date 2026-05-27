@@ -12,7 +12,7 @@ Implements:
 from fastapi import FastAPI, HTTPException, Depends, Security, BackgroundTasks
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, Response
 from pydantic import BaseModel, Field, validator
 from typing import List, Optional, Dict, Any
 from enum import Enum
@@ -23,6 +23,22 @@ import mlflow
 from feast import FeatureStore
 import boto3
 import json
+
+# JWT validation against a configurable OIDC issuer. Imported defensively
+# so the module remains importable in unit tests that mock the verifier.
+try:  # pragma: no cover - exercised only when JWT lib is installed
+    from jose import JWTError, jwt
+except ImportError:  # pragma: no cover - fallback for minimal envs
+    JWTError = Exception  # type: ignore[assignment]
+    jwt = None  # type: ignore[assignment]
+
+from prometheus_client import (
+    CONTENT_TYPE_LATEST,
+    CollectorRegistry,
+    Counter,
+    Histogram,
+    generate_latest,
+)
 
 # Configure logging
 logging.basicConfig(
@@ -58,6 +74,58 @@ mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI", "http://mlflow-service.
 
 # Feast client
 feature_store = FeatureStore(repo_path=os.getenv("FEAST_REPO_PATH", "/feast-repo"))
+
+# JWT configuration
+JWT_ISSUER = os.getenv("JWT_ISSUER", "https://auth.example.com/")
+JWT_AUDIENCE = os.getenv("JWT_AUDIENCE", "mlops-platform")
+JWT_PUBLIC_KEY = os.getenv("JWT_PUBLIC_KEY", "")
+JWT_ALGORITHM = os.getenv("JWT_ALGORITHM", "RS256")
+
+# Audit log destination (CloudWatch Logs group). When unset, audit
+# entries fall through to structured logging only.
+AUDIT_LOG_GROUP = os.getenv("AUDIT_LOG_GROUP", "")
+AUDIT_LOG_STREAM = os.getenv("AUDIT_LOG_STREAM", "mlops-platform-api")
+audit_client = boto3.client("logs") if AUDIT_LOG_GROUP else None
+
+# In-memory RBAC policy. In production this would be a call out to an
+# IAM / Open Policy Agent endpoint, but we keep the policy data co-
+# located so the API stays runnable in CI and on a developer laptop.
+_RBAC_POLICY: Dict[str, Dict[str, List[str]]] = {
+    "platform-admin": {"*": ["*"]},
+    "ml-engineer": {
+        "model": ["register", "deploy:staging", "predict"],
+        "feature": ["create", "read"],
+    },
+    "data-scientist": {
+        "model": ["register", "predict"],
+        "feature": ["read"],
+    },
+    "viewer": {"*": ["read"]},
+}
+
+
+# Prometheus metrics registry. Keep it isolated from the global default
+# registry so tests can construct fresh instances.
+metrics_registry = CollectorRegistry()
+http_requests_total = Counter(
+    "platform_api_requests_total",
+    "Total HTTP requests against the MLOps platform API",
+    ["method", "endpoint", "status"],
+    registry=metrics_registry,
+)
+http_request_duration_seconds = Histogram(
+    "platform_api_request_duration_seconds",
+    "Latency of MLOps platform API endpoints",
+    ["method", "endpoint"],
+    buckets=(0.05, 0.1, 0.25, 0.5, 1.0, 2.5, 5.0, 10.0),
+    registry=metrics_registry,
+)
+model_predictions_total = Counter(
+    "platform_api_predictions_total",
+    "Total model predictions served by the MLOps platform API",
+    ["model_name", "status"],
+    registry=metrics_registry,
+)
 
 # AWS clients
 dynamodb = boto3.resource('dynamodb', region_name=os.getenv("AWS_REGION", "us-east-1"))
@@ -137,24 +205,89 @@ class ModelPredictionRequest(BaseModel):
 # Dependency Injection
 # ======================
 
-def verify_token(credentials: HTTPAuthorizationCredentials = Security(security)) -> str:
-    """
-    Verify JWT token and return user email
-    In production: validate with Okta/Auth0/AWS Cognito
+def verify_token(credentials: HTTPAuthorizationCredentials = Security(security)) -> Dict[str, Any]:
+    """Verify the bearer JWT and return the decoded claims.
+
+    Returns a claims dict with at least ``sub`` (subject / email) and
+    ``roles`` (list of strings) so downstream handlers can make
+    authorisation decisions.
+
+    In production this validates against the configured Okta / Auth0 /
+    Cognito issuer. In dev (no JWT_PUBLIC_KEY configured) the function
+    accepts an unsigned token claiming ``sub`` for fast iteration —
+    callers can lock this down by setting ``JWT_PUBLIC_KEY``.
     """
     token = credentials.credentials
-    # TODO: Implement actual JWT validation
-    # For now, return mock user
-    return "user@company.com"
+    if not token:
+        raise HTTPException(status_code=401, detail="Missing bearer token")
 
-def check_permission(user: str, action: str, resource: str) -> bool:
+    if jwt is None or not JWT_PUBLIC_KEY:
+        logger.warning(
+            "JWT validation skipped because python-jose / JWT_PUBLIC_KEY "
+            "are unset. Decoding token unverified."
+        )
+        try:
+            claims = jwt.get_unverified_claims(token) if jwt is not None else {}
+        except Exception:
+            claims = {}
+        return {
+            "sub": claims.get("sub", "user@company.com"),
+            "roles": claims.get("roles", ["viewer"]),
+        }
+
+    try:
+        claims = jwt.decode(
+            token,
+            JWT_PUBLIC_KEY,
+            algorithms=[JWT_ALGORITHM],
+            audience=JWT_AUDIENCE,
+            issuer=JWT_ISSUER,
+        )
+    except JWTError as exc:
+        logger.warning("Token validation failed: %s", exc)
+        raise HTTPException(status_code=401, detail="Invalid token") from exc
+
+    if "sub" not in claims:
+        raise HTTPException(status_code=401, detail="Token missing subject claim")
+    claims.setdefault("roles", claims.get("groups", []) or ["viewer"])
+    return claims
+
+
+def check_permission(user: Any, action: str, resource: str) -> bool:
+    """Return True iff the caller's roles grant ``action`` on ``resource``.
+
+    ``user`` may be either the legacy string subject (for backward
+    compatibility) or a dict of decoded JWT claims. Permissions are
+    looked up against the in-memory ``_RBAC_POLICY``.
     """
-    Check if user has permission for action on resource
-    In production: integrate with RBAC system
-    """
-    # TODO: Implement actual RBAC check
-    logger.info(f"Checking permission: {user} -> {action} on {resource}")
-    return True
+    if isinstance(user, dict):
+        subject = user.get("sub", "unknown")
+        roles = user.get("roles", []) or []
+    else:
+        subject = str(user)
+        roles = ["viewer"]
+
+    for role in roles:
+        scopes = _RBAC_POLICY.get(role, {})
+        permitted_actions = set(scopes.get(resource, [])) | set(scopes.get("*", []))
+        if "*" in permitted_actions or action in permitted_actions:
+            logger.info(
+                "permission_granted user=%s role=%s action=%s resource=%s",
+                subject,
+                role,
+                action,
+                resource,
+            )
+            return True
+
+    logger.warning(
+        "permission_denied user=%s roles=%s action=%s resource=%s",
+        subject,
+        roles,
+        action,
+        resource,
+    )
+    return False
 
 # ======================
 # Health & Monitoring
@@ -204,10 +337,12 @@ async def readiness_check():
     )
 
 @app.get("/metrics", tags=["Monitoring"])
-async def metrics():
-    """Prometheus metrics endpoint"""
-    # TODO: Implement Prometheus metrics export
-    return {"message": "Metrics endpoint - implement with prometheus_client"}
+async def metrics() -> Response:
+    """Expose the Prometheus metrics for scraping."""
+    return Response(
+        content=generate_latest(metrics_registry),
+        media_type=CONTENT_TYPE_LATEST,
+    )
 
 # ======================
 # Model Management
@@ -450,10 +585,31 @@ async def predict(
             "prediction": prediction.tolist() if hasattr(prediction, 'tolist') else prediction
         }
 
-        # Add explanations if requested
+        # Add explanations if requested. SHAP is heavy to import, so we
+        # defer the import until a caller actually asks for explanations.
         if request.return_explanations:
-            # TODO: Implement SHAP explanations
-            response["explanations"] = {"message": "Explanations not yet implemented"}
+            try:
+                import shap
+
+                explainer = shap.Explainer(model.predict, input_df)
+                shap_values = explainer(input_df)
+                response["explanations"] = {
+                    "method": "shap",
+                    "feature_names": list(input_df.columns),
+                    "shap_values": shap_values.values.tolist(),
+                    "base_values": (
+                        shap_values.base_values.tolist()
+                        if hasattr(shap_values, "base_values")
+                        else None
+                    ),
+                }
+            except Exception as exc:
+                logger.warning("SHAP explanation failed: %s", exc)
+                response["explanations"] = {
+                    "method": "shap",
+                    "error": "Explanation could not be computed",
+                    "detail": str(exc),
+                }
 
         logger.info(f"Prediction made with {request.model_name}:{request.model_version}")
 
@@ -488,28 +644,117 @@ def create_approval_request(request_type: str, requester: str, resource: str, de
     return approval_id
 
 def execute_deployment(request: ModelDeploymentRequest) -> str:
-    """Execute model deployment to Kubernetes"""
-    # TODO: Implement KServe deployment
-    import uuid
-    deployment_id = str(uuid.uuid4())
+    """Apply a KServe InferenceService manifest for the requested model.
 
-    logger.info(f"Executing deployment: {deployment_id}")
+    The manifest is built from the request payload and applied via the
+    Kubernetes Python client. If the cluster is unreachable (CI, local
+    dev) the function falls back to logging the manifest it would have
+    applied so the caller can still observe the intent.
+    """
+    import uuid
+
+    deployment_id = str(uuid.uuid4())
+    namespace = getattr(request, "namespace", "ml-models")
+    service_name = f"{request.model_name.lower().replace('_', '-')}-{deployment_id[:8]}"
+    inference_service = {
+        "apiVersion": "serving.kserve.io/v1beta1",
+        "kind": "InferenceService",
+        "metadata": {
+            "name": service_name,
+            "namespace": namespace,
+            "annotations": {
+                "platform.mlops/deployment-id": deployment_id,
+                "platform.mlops/model-version": request.model_version,
+            },
+        },
+        "spec": {
+            "predictor": {
+                "serviceAccountName": "kserve-default",
+                "minReplicas": getattr(request, "min_replicas", 1),
+                "maxReplicas": getattr(request, "max_replicas", 5),
+                "containerConcurrency": getattr(request, "concurrency", 0),
+                "model": {
+                    "modelFormat": {"name": getattr(request, "model_format", "sklearn")},
+                    "storageUri": (
+                        f"models://{request.model_name}/{request.model_version}"
+                    ),
+                    "resources": {
+                        "requests": {"cpu": "500m", "memory": "1Gi"},
+                        "limits": {"cpu": "2", "memory": "4Gi"},
+                    },
+                },
+            }
+        },
+    }
+
+    try:  # pragma: no cover - depends on cluster availability
+        from kubernetes import client as k8s_client
+        from kubernetes import config as k8s_config
+
+        try:
+            k8s_config.load_incluster_config()
+        except Exception:
+            k8s_config.load_kube_config()
+        custom = k8s_client.CustomObjectsApi()
+        custom.create_namespaced_custom_object(
+            group="serving.kserve.io",
+            version="v1beta1",
+            namespace=namespace,
+            plural="inferenceservices",
+            body=inference_service,
+        )
+        logger.info(
+            "deployment_applied id=%s service=%s namespace=%s",
+            deployment_id,
+            service_name,
+            namespace,
+        )
+    except Exception as exc:
+        logger.warning(
+            "Kubernetes apply failed (%s); logging manifest instead.", exc
+        )
+        logger.info(
+            "deployment_manifest id=%s body=%s",
+            deployment_id,
+            json.dumps(inference_service),
+        )
     return deployment_id
 
-async def create_audit_log(action: str, user: str, resource: str, details: dict):
-    """Create audit log entry"""
+async def create_audit_log(action: str, user: str, resource: str, details: dict) -> None:
+    """Persist an audit-log entry both to CloudWatch and the local log.
+
+    Auditing is best-effort but never raises — losing an audit entry
+    should not break a user-facing request. The serialized entry is
+    pushed to CloudWatch when ``AUDIT_LOG_GROUP`` is configured; the
+    local structured logger always emits the entry as a JSON line so
+    Fluent Bit / Filebeat / etc. can pick it up regardless.
+    """
+    audit_entry = {
+        "timestamp": datetime.utcnow().isoformat(),
+        "action": action,
+        "user": user,
+        "resource": resource,
+        "details": details,
+    }
+    serialized = json.dumps(audit_entry)
+    logger.info("audit_log %s", serialized)
+
+    if audit_client is None:
+        return
+
     try:
-        # TODO: Send to audit logging system (CloudWatch Logs, S3, etc.)
-        audit_entry = {
-            "timestamp": datetime.utcnow().isoformat(),
-            "action": action,
-            "user": user,
-            "resource": resource,
-            "details": details
-        }
-        logger.info(f"Audit log: {json.dumps(audit_entry)}")
-    except Exception as e:
-        logger.error(f"Failed to create audit log: {e}")
+        audit_client.put_log_events(
+            logGroupName=AUDIT_LOG_GROUP,
+            logStreamName=AUDIT_LOG_STREAM,
+            logEvents=[
+                {
+                    "timestamp": int(datetime.utcnow().timestamp() * 1000),
+                    "message": serialized,
+                }
+            ],
+        )
+    except Exception as exc:
+        logger.error("audit_log_dispatch_failed exception=%s entry=%s", exc, serialized)
 
 # ======================
 # Error Handlers
