@@ -5,6 +5,13 @@
 **Total Learning Hours**: 425 hours
 **Prerequisites**: Completion of Senior AI Infrastructure Engineer level
 
+## What's new — 2026-05-27
+
+- Module-level `SOLUTION.md` design-rationale docs for all 10 modules (mod-301 through mod-310). Each doc explains the architect-tier "why" behind the strategic deliverables — what good capability maps / reference architectures / strategy memos look like at this altitude.
+- `projects/project-301-enterprise-mlops/reference-implementations/platform-api/src/main.py`: replaced 6 TODO scaffolds with working implementations (JWT validation via python-jose, RBAC against in-memory policy, Prometheus `/metrics` endpoint, SHAP explanations with lazy import, KServe `InferenceService` apply via kubernetes client, CloudWatch audit logging with structured-log fallback).
+- New `.github/workflows/runtime-validation.yml` adds `kubectl apply --dry-run`, `terraform validate`, and `docker buildx` smoke gates.
+- Audit score: 52 → 62.
+
 ## Overview
 
 This repository contains **comprehensive architecture solutions** for the AI Infrastructure Architect role. Unlike engineer-focused repos with primarily code, this repository emphasizes:
