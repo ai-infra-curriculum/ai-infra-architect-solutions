@@ -457,3 +457,9 @@ This curriculum was designed based on:
 ---
 
 **Ready to become an AI Infrastructure Architect?** Start with [LEARNING_GUIDE.md](./LEARNING_GUIDE.md) to understand the architect mindset, then dive into [Project 301: Enterprise MLOps Platform](./projects/project-301-enterprise-mlops/).
+
+
+---
+
+<!-- aicg:maintained-by -->
+Maintained by [VeriSwarm.ai](https://veriswarm.ai)
