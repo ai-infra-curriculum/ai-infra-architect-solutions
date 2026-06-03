@@ -711,7 +711,7 @@ EOF
 cd kubernetes/feast/
 
 # Deploy Feast online store (Redis)
-helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo add bitnami http://web.archive.org/web/20220926183524/https://charts.bitnami.com/bitnami
 helm install feast-redis bitnami/redis \
   -n mlops-platform \
   --values feast-redis-values.yaml \
