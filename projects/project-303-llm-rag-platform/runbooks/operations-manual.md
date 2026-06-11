@@ -20,7 +20,7 @@ kubectl port-forward svc/prometheus 9090:9090 -n monitoring &
 open http://localhost:9090/alerts
 
 # 3. Check cost dashboard
-open https://console.aws.amazon.com/cost-management/
+open https://us-east-1.console.aws.amazon.com/cost-management
 
 # 4. Review error logs
 kubectl logs --since=24h -l app=vllm -n llm-inference | grep ERROR
@@ -460,8 +460,8 @@ kubectl logs -f -l app=vllm -n llm-inference
 - **Dashboards**:
   - [Grafana](https://grafana.company.com/llm-platform)
   - [Prometheus](https://prometheus.company.com)
-  - [AWS Console](https://console.aws.amazon.com)
-  - [Cost Explorer](https://console.aws.amazon.com/cost-management/)
+  - [AWS Console](https://console.aws.amazon.com/console/home)
+  - [Cost Explorer](https://us-east-1.console.aws.amazon.com/cost-management)
 
 - **Documentation**:
   - [Architecture Docs](../ARCHITECTURE.md)
