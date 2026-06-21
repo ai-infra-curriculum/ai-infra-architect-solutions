@@ -1,5 +1,9 @@
 # AI Infrastructure Architect - Solutions Repository
 
+<!-- aicg:site-banner -->
+> 🎓 Part of the **[AI Infrastructure Curriculum](https://ai-infra-curriculum.github.io/)** — a free, open-source ladder of role-based AI-infrastructure programs. [Explore the ladder](https://ai-infra-curriculum.github.io/) · [Join the first live cohort](https://ai-infra-curriculum.github.io/junior.html)
+<!-- /aicg:site-banner -->
+
 **Level**: AI Infrastructure Architect (Role Level 3)
 **Focus**: Enterprise Architecture Artifacts & Reference Implementations
 **Total Learning Hours**: 425 hours
@@ -457,7 +461,6 @@ This curriculum was designed based on:
 ---
 
 **Ready to become an AI Infrastructure Architect?** Start with [LEARNING_GUIDE.md](./LEARNING_GUIDE.md) to understand the architect mindset, then dive into [Project 301: Enterprise MLOps Platform](./projects/project-301-enterprise-mlops/).
-
 
 ---
 
