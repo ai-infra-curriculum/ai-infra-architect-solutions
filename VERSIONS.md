@@ -1,12 +1,6 @@
-# Curriculum Guide
+# Versions
 
-- Track type: solutions
-- Paired learning repo: ai-infra-architect-learning
-- Primary content directories: modules/ + projects/
-
-## Shipped (autonomous)
-
-Auto-appended by the AICG runner. One row per verified work item. Edit the rest of the document by hand; this section is additive only.
+## 2026-07
 
 | Date | Work ID | Scope | Title |
 |---|---|---|---|
