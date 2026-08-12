@@ -17,7 +17,7 @@ metadata:
   name: mlflow
   namespace: mlflow
   annotations:
-    eks.amazonaws.com/role-arn: arn:aws:iam::123456789012:role/mlops-mlflow-role
+    eks.amazonaws.com/role-arn: "arn:aws:iam::123456789012:role/mlops-mlflow-role"
 ---
 # ConfigMap for MLflow configuration
 apiVersion: v1
