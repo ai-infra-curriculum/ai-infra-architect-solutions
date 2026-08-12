@@ -7,6 +7,10 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 5.0"
     }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "~> 2.20"
+    }
   }
 }
 
@@ -58,8 +62,6 @@ resource "aws_eks_node_group" "a100_llama_70b" {
   lifecycle {
     ignore_changes = [scaling_config[0].desired_size]
   }
-
-  depends_on = [var.node_role_arn]
 }
 
 # L40S Node Group for Mistral 7B (4x GPUs per node)
@@ -101,11 +103,11 @@ resource "aws_eks_node_group" "l40s_mistral_7b" {
   tags = merge(
     var.tags,
     {
-      Name = "${var.cluster_name}-l40s-mistral-7b"
-      Purpose = "LLM Inference - Mistral 7B (Cost Optimized)"
+      Name       = "${var.cluster_name}-l40s-mistral-7b"
+      Purpose    = "LLM Inference - Mistral 7B (Cost Optimized)"
       CostCenter = "ml-inference"
     }
-  }
+  )
 
   lifecycle {
     ignore_changes = [scaling_config[0].desired_size]
