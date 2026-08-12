@@ -413,7 +413,7 @@ spec:
 # `kubectl apply --dry-run=client` validation in environments where the CRD
 # is not yet present. Apply the ServiceMonitor separately after the operator
 # is deployed. See ../monitoring/ for the standalone manifest.
----
+#
 # ResourceQuota for MLflow namespace (cost control)
 apiVersion: v1
 kind: ResourceQuota
