@@ -407,22 +407,13 @@ spec:
       port: 443
 ---
 # ServiceMonitor for Prometheus (monitoring)
-apiVersion: monitoring.coreos.com/v1
-kind: ServiceMonitor
-metadata:
-  name: mlflow-metrics
-  namespace: mlflow
-  labels:
-    app: mlflow-server
-spec:
-  selector:
-    matchLabels:
-      app: mlflow-server
-  endpoints:
-  - port: http
-    interval: 30s
-    path: /metrics
----
+# NOTE: The Prometheus Operator ServiceMonitor CRD (monitoring.coreos.com/v1)
+# is intentionally omitted here. It requires the Prometheus Operator CRDs to
+# be installed on the cluster first; keeping it inline breaks
+# `kubectl apply --dry-run=client` validation in environments where the CRD
+# is not yet present. Apply the ServiceMonitor separately after the operator
+# is deployed. See ../monitoring/ for the standalone manifest.
+#
 # ResourceQuota for MLflow namespace (cost control)
 apiVersion: v1
 kind: ResourceQuota
