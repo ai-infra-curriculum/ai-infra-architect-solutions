@@ -169,12 +169,12 @@ spec:
           requests:
             cpu: "32"
             memory: "400Gi"
-            nvidia.com/gpu: 8  # 8x A100 GPUs
+            nvidia.com/gpu: "8"  # 8x A100 GPUs
             ephemeral-storage: "200Gi"
           limits:
             cpu: "64"
             memory: "800Gi"
-            nvidia.com/gpu: 8
+            nvidia.com/gpu: "8"
             ephemeral-storage: "300Gi"
 
         volumeMounts:
