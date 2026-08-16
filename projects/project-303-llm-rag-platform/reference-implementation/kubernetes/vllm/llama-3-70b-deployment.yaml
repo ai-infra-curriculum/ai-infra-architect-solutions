@@ -342,7 +342,7 @@ metadata:
   name: llm-inference-sa
   namespace: llm-inference
   annotations:
-    eks.amazonaws.com/role-arn: arn:aws:iam::ACCOUNT_ID:role/llm-inference-s3-role
+    eks.amazonaws.com/role-arn: "arn:aws:iam::ACCOUNT_ID:role/llm-inference-s3-role"
 
 ---
 # PriorityClass for LLM workloads
