@@ -40,7 +40,7 @@ resource "aws_eks_node_group" "a100_llama_70b" {
     "nvidia.com/gpu"    = "true"
   }
 
-  taints {
+  taint {
     key    = "nvidia.com/gpu"
     value  = "true"
     effect = "NO_SCHEDULE"
@@ -92,7 +92,7 @@ resource "aws_eks_node_group" "l40s_mistral_7b" {
     "spot-instance"     = "true"
   }
 
-  taints {
+  taint {
     key    = "nvidia.com/gpu"
     value  = "true"
     effect = "NO_SCHEDULE"
@@ -105,7 +105,7 @@ resource "aws_eks_node_group" "l40s_mistral_7b" {
       Purpose = "LLM Inference - Mistral 7B (Cost Optimized)"
       CostCenter = "ml-inference"
     }
-  }
+  )
 
   lifecycle {
     ignore_changes = [scaling_config[0].desired_size]
