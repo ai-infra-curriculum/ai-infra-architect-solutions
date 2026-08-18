@@ -17,6 +17,10 @@
 - [mod-309-arch-communication](modules/mod-309-arch-communication/)
 - [mod-310-emerging-tech](modules/mod-310-emerging-tech/)
 
+## Projects
+
+- [project-301-enterprise-mlops](projects/project-301-enterprise-mlops/)
+
 ## Shipped (autonomous)
 
 Auto-appended by the AICG runner. One row per verified work item. Edit the rest of the document by hand; this section is additive only.
