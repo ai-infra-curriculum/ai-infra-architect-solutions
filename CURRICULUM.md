@@ -4,6 +4,19 @@
 - Paired learning repo: ai-infra-architect-learning
 - Primary content directories: modules/ + projects/
 
+## Modules
+
+- [mod-301-enterprise-architecture](modules/mod-301-enterprise-architecture/)
+- [mod-302-multicloud-hybrid](modules/mod-302-multicloud-hybrid/)
+- [mod-303-security-compliance](modules/mod-303-security-compliance/)
+- [mod-304-cost-finops](modules/mod-304-cost-finops/)
+- [mod-305-ha-dr](modules/mod-305-ha-dr/)
+- [mod-306-enterprise-mlops](modules/mod-306-enterprise-mlops/)
+- [mod-307-data-architecture](modules/mod-307-data-architecture/)
+- [mod-308-llm-rag](modules/mod-308-llm-rag/)
+- [mod-309-arch-communication](modules/mod-309-arch-communication/)
+- [mod-310-emerging-tech](modules/mod-310-emerging-tech/)
+
 ## Shipped (autonomous)
 
 Auto-appended by the AICG runner. One row per verified work item. Edit the rest of the document by hand; this section is additive only.
