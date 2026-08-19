@@ -21,6 +21,7 @@
 
 - [project-301-enterprise-mlops](projects/project-301-enterprise-mlops/)
 - [project-302-multicloud-infra](projects/project-302-multicloud-infra/)
+- [project-303-llm-rag-platform](projects/project-303-llm-rag-platform/)
 
 ## Shipped (autonomous)
 
