@@ -230,7 +230,7 @@ Adopt a **Best-of-Breed Multi-Cloud Strategy** spanning three cloud providers:
 - [Multi-Cloud Cost Analysis](../business/cost-analysis.md)
 - [Data Residency Requirements Matrix](../governance/data-residency-matrix.md)
 - [AWS vs GCP vs Azure Benchmark Report](../research/cloud-comparison.md)
-- [Gartner Magic Quadrant for Cloud Infrastructure](https://www.gartner.com/...)
+- [Gartner Magic Quadrant for Cloud Infrastructure](https://www.gartner.com/en...)
 
 ---
 
