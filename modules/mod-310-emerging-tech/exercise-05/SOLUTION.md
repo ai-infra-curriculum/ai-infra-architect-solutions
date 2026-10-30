@@ -130,7 +130,7 @@ From the module SOLUTION's "common mistakes graders see":
 - Learning exercise: [`lessons/mod-310-emerging-tech/exercises/exercise-5.md`](https://github.com/ai-infra-curriculum/ai-infra-architect-learning/blob/main/lessons/mod-310-emerging-tech/exercises/exercise-5.md)
 - Module-level architect-tier framing: [`../SOLUTION.md`](../SOLUTION.md) §"Roadmap integration (exercise 05)"
 - NIST AI Risk Management Framework: <https://www.nist.gov/itl/ai-risk-management-framework>
-- OWASP Machine Learning Security Top 10: <https://owasp.org/www-project-machine-learning-security-top-10/>
+- OWASP Machine Learning Security Top 10: <https://owasp.org/projects/machine-learning-security-top-ten>
 - MITRE ATLAS: <https://atlas.mitre.org/>
 - Companion in this module: [`../exercise-01/SOLUTION.md`](../exercise-01/SOLUTION.md), [`../exercise-02/SOLUTION.md`](../exercise-02/SOLUTION.md), [`../exercise-03/SOLUTION.md`](../exercise-03/SOLUTION.md), [`../exercise-04/SOLUTION.md`](../exercise-04/SOLUTION.md) — this exercise integrates all of them.
 - Upstream long-horizon frame (per module SOLUTION): ``principal-engineer/mod-505-long-term-technical-bets`` and ``principal-architect/mod-602-industry-standards``.
