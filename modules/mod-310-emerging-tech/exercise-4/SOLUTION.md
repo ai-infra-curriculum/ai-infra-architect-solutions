@@ -122,7 +122,7 @@ From the module SOLUTION's "common mistakes graders see":
 - Learning exercise: [`lessons/mod-310-emerging-tech/exercises/exercise-4.md`](https://github.com/ai-infra-curriculum/ai-infra-architect-learning/blob/main/lessons/mod-310-emerging-tech/exercises/exercise-4.md)
 - Module-level architect-tier framing: [`../SOLUTION.md`](../SOLUTION.md) §"Vendor / OSS evaluation framework (exercise 04)"
 - NIST AI Risk Management Framework: <https://www.nist.gov/itl/ai-risk-management-framework>
-- OWASP Machine Learning Security Top 10: <https://owasp.org/www-project-machine-learning-security-top-10/>
+- OWASP Machine Learning Security Top 10: <https://owasp.org/projects/machine-learning-security-top-ten>
 - MITRE ATLAS: <https://atlas.mitre.org/>
 - Companion in this module: [`../exercise-01/SOLUTION.md`](../exercise-01/SOLUTION.md) — the evaluation feeds the maturity axis of the radar.
 
