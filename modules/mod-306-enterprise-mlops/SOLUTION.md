@@ -2,7 +2,26 @@
 
 > Read this *after* you have designed the reference enterprise
 > MLOps platform. This document explains the architect-tier
-> view of enterprise-scale MLOps.
+> view of enterprise-scale MLOps and acts as a high-level index
+> for the per-exercise solutions in this directory.
+
+## Per-exercise solutions
+
+The rationale below is factored into per-exercise `SOLUTION.md`
+files. Start here for orientation, then go to the exercise file
+that matches the deliverable you are reviewing.
+
+| Exercise | Topic | File |
+| --- | --- | --- |
+| Exercise 1 | MLOps Architecture Application | [`exercise-1/SOLUTION.md`](exercise-1/SOLUTION.md) |
+| Exercise 2 | Model Governance Application | [`exercise-2/SOLUTION.md`](exercise-2/SOLUTION.md) |
+| Exercise 3 | Feature Stores Application | [`exercise-3/SOLUTION.md`](exercise-3/SOLUTION.md) |
+| Exercise 4 | Real-time Serving Application | [`exercise-4/SOLUTION.md`](exercise-4/SOLUTION.md) |
+| Exercise 5 | Real-time Serving Application (Operating Model + Beyond-the-Reference) | [`exercise-5/SOLUTION.md`](exercise-5/SOLUTION.md) |
+
+The legacy `exercise-01/` … `exercise-05/` directories remain as
+pointer READMEs into the learning repository; the depth lives in
+the new `exercise-1/` … `exercise-5/` directories above.
 
 ## What this module is really teaching
 

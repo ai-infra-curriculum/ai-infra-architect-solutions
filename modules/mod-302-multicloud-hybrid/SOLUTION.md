@@ -2,7 +2,26 @@
 
 > Read this *after* you have designed the reference multi-cloud
 > architecture. This document explains the architect-tier lens on
-> multi-cloud / hybrid topologies.
+> multi-cloud / hybrid topologies and acts as a high-level index
+> for the per-exercise solutions in this directory.
+
+## Per-exercise solutions
+
+The rationale below is factored into per-exercise `SOLUTION.md`
+files. Start here for orientation, then go to the exercise file
+that matches the deliverable you are reviewing.
+
+| Exercise | Topic | File |
+| --- | --- | --- |
+| Exercise 1 | Multi-cloud Strategy Application | [`exercise-1/SOLUTION.md`](exercise-1/SOLUTION.md) |
+| Exercise 2 | Hybrid Cloud Application | [`exercise-2/SOLUTION.md`](exercise-2/SOLUTION.md) |
+| Exercise 3 | Vendor Selection Application | [`exercise-3/SOLUTION.md`](exercise-3/SOLUTION.md) |
+| Exercise 4 | Migration Application (Strategy) | [`exercise-4/SOLUTION.md`](exercise-4/SOLUTION.md) |
+| Exercise 5 | Migration Application (Execution) | [`exercise-5/SOLUTION.md`](exercise-5/SOLUTION.md) |
+
+The legacy `exercise-01/` … `exercise-05/` directories remain as
+pointer READMEs into the learning repository; the depth lives in
+the new `exercise-1/` … `exercise-5/` directories above.
 
 ## What this module is really teaching
 
@@ -16,7 +35,11 @@ implementation of multi-cloud. The architect tier focuses on
 
 ## What the deliverables should actually look like
 
-### Multi-cloud decision document (exercise 01)
+Each bullet below is the spine of the matching per-exercise
+file. The exercise file carries the worked example, validation
+steps, rubric, and references.
+
+### Multi-cloud decision document → exercise 1
 
 The deliverable answers:
 - Why multi-cloud, specifically?
@@ -27,29 +50,33 @@ The deliverable answers:
 If the document can't answer "why specifically multi-cloud," the
 decision is wrong.
 
-### Reference topology (exercise 02)
-
-Network topology, identity federation, observability federation,
-deployment patterns. The reference uses Terraform across clouds
-with cloud-specific modules at the leaf level.
-
-### Hybrid integration patterns (exercise 03)
+### Reference topology / hybrid integration → exercise 2
 
 On-prem + cloud requires explicit connectivity (Direct Connect,
 ExpressRoute, Interconnect) and identity bridging. The
 deliverable enumerates patterns for synchronous vs. async
-integration.
+integration and the per-workload residency pin.
 
-### Cost-comparison model (exercise 04)
+### Vendor selection and cost comparison → exercise 3
 
 Per-workload TCO across clouds, including hidden costs (data
 egress, support tiers, professional services). The deliverable
-is a spreadsheet model with documented assumptions.
+is a weighted scorecard plus a spreadsheet-style TCO model
+with documented assumptions.
 
-### Migration strategy (exercise 05)
+### Migration strategy → exercise 4
 
 Existing single-cloud to multi-cloud: which workloads move
-first, which never move, what the rollback plan is.
+first, which never move, what the rollback plan is. The
+deliverable is a classification register plus a one-page
+strategy.
+
+### Migration execution → exercise 5
+
+The execution altitude for the strategy from exercise 4:
+sequenced waves with dependency gates, cutover runbooks, and
+metric-gated advancement that keeps every intermediate state
+operable.
 
 ## Trade-offs we deliberately accepted
 
