@@ -52,13 +52,13 @@ Tier-0 is the step above: services where even that RPO/RTO is
 too loose, usually because downtime is directly revenue- or
 safety-impacting. The decision document names:
 
-- **Which services are tier-0** — the list, with the business
++ **Which services are tier-0** — the list, with the business
   reason each is elevated. "All of tier-1 should be tier-0" is
   a fail signal because it collapses the tiering.
-- **Which stay on the baseline** — explicit, so the ops cost
++ **Which stay on the baseline** — explicit, so the ops cost
   is bounded. The module rationale accepts the cost of
   tier-1; tier-0 cost is additive.
-- **Promotion / demotion triggers** — the events that move a
++ **Promotion / demotion triggers** — the events that move a
   service between tiers (regulatory change, revenue growth,
   incident). Tiering drifts without them.
 
@@ -70,19 +70,19 @@ section. Active/active doubles replication challenge compared
 to the asynchronous warm-standby baseline (exercise 2). The
 submission commits to:
 
-- **Data model** — which data classes can accept multi-master
++ **Data model** — which data classes can accept multi-master
   writes with a stated conflict-resolution rule, and which
   stay single-master even in active/active topology.
-- **Convergence SLO** — the time within which the regions
++ **Convergence SLO** — the time within which the regions
   reconcile. Active/active without a convergence SLO is a
   silent correctness failure.
-- **Traffic steering** — how user traffic is split (geographic,
++ **Traffic steering** — how user traffic is split (geographic,
   latency-based, weighted) and how the system behaves on
   region loss (the surviving region absorbs full load).
-- **Capacity posture** — each region must carry enough
++ **Capacity posture** — each region must carry enough
   capacity to absorb the other's load. The ops cost is
   explicit.
-- **Downgrade path** — when the beyond-reference posture is
++ **Downgrade path** — when the beyond-reference posture is
   untenable (cost shock, incident, strategic change), how the
   service returns to the baseline.
 
@@ -97,22 +97,22 @@ The module rationale calls out *add immutable backups for
 ransomware defense* in the "when to go beyond" section. The
 submission names:
 
-- **Storage model** — write-once, read-many storage with a
++ **Storage model** — write-once, read-many storage with a
   tamper-evident control plane. Mutable paths cannot
   overwrite or delete the immutable copy before the retention
   window expires.
-- **Scope** — which data classes carry immutable copies. The
++ **Scope** — which data classes carry immutable copies. The
   module rationale targets ransomware; model artifacts,
   training data lineage, and prompt / response logs are
   high-value for AI/ML.
-- **Retention window** — long enough that a stealth
++ **Retention window** — long enough that a stealth
   compromise is detectable before the earliest immutable copy
   expires.
-- **Restore drill** — the module rationale's dominant failure
++ **Restore drill** — the module rationale's dominant failure
   is *backups that aren't tested*. The immutable restore drill
   is on the exercise-3 cadence; the drill proves the copy is
   usable, not merely stored.
-- **Access-control proof** — the control that prevents the
++ **Access-control proof** — the control that prevents the
   admin credential that would otherwise be ransomware's
   target from mutating the immutable storage. Without this
   control, "immutable" is marketing.
@@ -122,13 +122,13 @@ submission names:
 The baseline chaos frame (exercise 3) verifies the HA posture.
 When tier-0 and active/active are in scope, chaos is upgraded:
 
-- **Region-pair chaos** — one region is withdrawn under load
++ **Region-pair chaos** — one region is withdrawn under load
   and the surviving region's capacity posture is verified. The
   blast radius is higher; the readiness gate is stricter.
-- **Steady-state chaos in production** — tier-0 depends on the
++ **Steady-state chaos in production** — tier-0 depends on the
   active/active posture being continuously validated, so
   low-blast chaos runs continuously rather than on a schedule.
-- **Immutable-restore chaos** — the restore drill is run as
++ **Immutable-restore chaos** — the restore drill is run as
   chaos against staging data, in addition to the periodic
   production-scope drill.
 
@@ -137,19 +137,19 @@ When tier-0 and active/active are in scope, chaos is upgraded:
 Beyond-the-reference posture carries AI/ML-specific risk the
 baseline doesn't address:
 
-- **Model artifacts in immutable storage** — the artifact
++ **Model artifacts in immutable storage** — the artifact
   registry is a high-value target for supply-chain-style
   attacks (OWASP ML Top 10, MITRE ATLAS adversarial reach).
   Immutable storage of signed artifacts is the architectural
   mitigation.
-- **Training data lineage** — the ability to prove what a
++ **Training data lineage** — the ability to prove what a
   model was trained on is a NIST AI RMF *Govern* and *Map*
   function; immutable lineage records are the storage layer.
-- **Prompt / response logs** — compliance and
++ **Prompt / response logs** — compliance and
   incident-forensic value; the module's DR scope already
   includes them, but immutable retention is where the
   ransomware trade-off is accepted.
-- **Active/active for serving** — model serving is often the
++ **Active/active for serving** — model serving is often the
   easiest active/active workload because it is stateless; the
   harder question is the embedding and feature store, and the
   submission commits to one answer per store.
@@ -162,12 +162,12 @@ the right altitude because the module rationale lists the three
 upgrades. Trade-offs the submission should explicitly accept,
 mirroring the module rationale:
 
-- Active/active is strictly more expensive and more complex
++ Active/active is strictly more expensive and more complex
   than the baseline; it is justified for tier-0 only.
-- Immutable backups are not free — storage cost, access-control
++ Immutable backups are not free — storage cost, access-control
   cost, and restore-drill cost — but ransomware defense is the
   specific threat they answer.
-- The chaos upgrade raises false-positive risk; the signal
++ The chaos upgrade raises false-positive risk; the signal
   tracking from exercise 3 is critical to prevent degradation.
 
 ### What stays out of scope
@@ -297,18 +297,18 @@ and the "when to go beyond" section:
 
 ## 6. References
 
-- NIST AI Risk Management Framework (AI RMF 1.0) —
++ NIST AI Risk Management Framework (AI RMF 1.0) —
   <https://www.nist.gov/itl/ai-risk-management-framework>
-- NIST SP 800-34 Rev. 1, *Contingency Planning Guide for Federal
++ NIST SP 800-34 Rev. 1, *Contingency Planning Guide for Federal
   Information Systems* —
   <https://csrc.nist.gov/pubs/sp/800/34/r1/upd1/final>
-- AWS Well-Architected Framework — Reliability Pillar —
++ AWS Well-Architected Framework — Reliability Pillar —
   <https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/welcome.html>
-- Google Cloud Architecture Framework — Reliability —
++ Google Cloud Architecture Framework — Reliability —
   <https://cloud.google.com/architecture/framework/reliability>
-- Microsoft Azure Well-Architected Framework — Reliability —
++ Microsoft Azure Well-Architected Framework — Reliability —
   <https://learn.microsoft.com/en-us/azure/well-architected/reliability/>
-- OWASP Machine Learning Security Top 10 —
++ OWASP Machine Learning Security Top 10 —
   <https://owasp.org/www-project-machine-learning-security-top-10/>
-- MITRE ATLAS — <https://atlas.mitre.org/>
-- Module-level rationale: `../SOLUTION.md`
++ MITRE ATLAS — <https://atlas.mitre.org/>
++ Module-level rationale: `../SOLUTION.md`
