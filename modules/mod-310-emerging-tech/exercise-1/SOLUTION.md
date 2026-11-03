@@ -102,5 +102,5 @@ From the module SOLUTION's "common mistakes graders see":
 
 - Learning exercise: [`lessons/mod-310-emerging-tech/exercises/exercise-1.md`](https://github.com/ai-infra-curriculum/ai-infra-architect-learning/blob/main/lessons/mod-310-emerging-tech/exercises/exercise-1.md)
 - Module-level architect-tier framing: [`../SOLUTION.md`](../SOLUTION.md) §"Emerging-tech radar (exercise 01)"
-- Companion in this module: [`../exercise-04/SOLUTION.md`](../exercise-04/SOLUTION.md) — the vendor / OSS evaluation framework feeds the maturity axis of this radar.
+- Companion in this module: [`../exercise-4/SOLUTION.md`](../exercise-4/SOLUTION.md) — the vendor / OSS evaluation framework feeds the maturity axis of this radar.
 - ThoughtWorks Technology Radar (public volumes, twice-yearly) — canonical example of the ring-based radar shape and cadence: <https://www.thoughtworks.com/en-us/radar> and the methodology FAQ at <https://www.thoughtworks.com/en-us/radar/faq>.

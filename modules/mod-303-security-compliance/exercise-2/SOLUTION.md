@@ -175,7 +175,7 @@ section, mapped to the GDPR frame:
   <https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf>
 - OWASP Machine Learning Security Top 10 — adversary catalogue
   used when scoping DPIA risk for ML surfaces —
-  <https://owasp.org/www-project-machine-learning-security-top-10/>
+  <https://owasp.org/projects/machine-learning-security-top-ten>
 - MITRE ATLAS — <https://atlas.mitre.org/>
 - VeriSwarm Trust Center (example of an externally published
   compliance posture) — <https://veriswarm.ai/trust>

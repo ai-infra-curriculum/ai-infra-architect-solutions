@@ -104,6 +104,6 @@ From the module SOLUTION's "common mistakes graders see":
 
 - Learning exercise: [`lessons/mod-310-emerging-tech/exercises/exercise-2.md`](https://github.com/ai-infra-curriculum/ai-infra-architect-learning/blob/main/lessons/mod-310-emerging-tech/exercises/exercise-2.md)
 - Module-level architect-tier framing: [`../SOLUTION.md`](../SOLUTION.md) §"Pilot proposal (exercise 02)"
-- Companion in this module: [`../exercise-01/SOLUTION.md`](../exercise-01/SOLUTION.md) — pilots typically target entries on the *trial* or *assess* rings of the radar.
+- Companion in this module: [`../exercise-1/SOLUTION.md`](../exercise-1/SOLUTION.md) — pilots typically target entries on the *trial* or *assess* rings of the radar.
 - Robert G. Cooper's Stage-Gate® idea-to-launch system — the canonical innovation-portfolio frame in which each gate is an explicit *Go / Kill / Hold / Recycle* decision against pre-defined criteria: ["The Stage-Gate Idea-to-Launch System"](https://onlinelibrary.wiley.com/doi/full/10.1002/9781444316568.wiem05014), Wiley International Encyclopedia of Marketing.
 - Harvard Business Review, ["Research: How to Get Better at Killing Bad Projects"](https://hbr.org/2021/04/research-how-to-get-better-at-killing-bad-projects) (2021) — on agreeing stopping criteria before the pilot starts so kill decisions are not emotional judgement calls after the fact.

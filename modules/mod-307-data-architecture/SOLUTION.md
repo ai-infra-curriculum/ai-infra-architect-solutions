@@ -19,9 +19,6 @@ that matches the deliverable you are reviewing.
 | Exercise 4 | Data Quality Application (data contracts) | [`exercise-4/SOLUTION.md`](exercise-4/SOLUTION.md) |
 | Exercise 5 | Data Quality Application (catalog + lineage) | [`exercise-5/SOLUTION.md`](exercise-5/SOLUTION.md) |
 
-The legacy `exercise-01/` … `exercise-05/` directories remain as
-pointer READMEs into the learning repository; the depth lives in
-the new `exercise-1/` … `exercise-5/` directories above.
 
 ## What this module is really teaching
 

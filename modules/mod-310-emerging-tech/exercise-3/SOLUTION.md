@@ -128,6 +128,6 @@ From the module SOLUTION's "common mistakes graders see":
 
 - Learning exercise: [`lessons/mod-310-emerging-tech/exercises/exercise-3.md`](https://github.com/ai-infra-curriculum/ai-infra-architect-learning/blob/main/lessons/mod-310-emerging-tech/exercises/exercise-3.md)
 - Module-level architect-tier framing: [`../SOLUTION.md`](../SOLUTION.md) §"Tech-debt impact analysis (exercise 03)"
-- Companion in this module: [`../exercise-05/SOLUTION.md`](../exercise-05/SOLUTION.md) — the recommendation flows into the multi-year roadmap.
+- Companion in this module: [`../exercise-5/SOLUTION.md`](../exercise-5/SOLUTION.md) — the recommendation flows into the multi-year roadmap.
 - NIST Post-Quantum Cryptography standardization project: <https://csrc.nist.gov/projects/post-quantum-cryptography> — authoritative source for finalized standards (FIPS 203/204/205, August 13, 2024) and the ongoing selection of backup algorithms.
 - Robert G. Cooper, ["The Stage-Gate Idea-to-Launch System"](https://onlinelibrary.wiley.com/doi/full/10.1002/9781444316568.wiem05014), Wiley International Encyclopedia of Marketing — used here for the capability-portfolio framing in which a bet's *cost out* is weighed against its *option value* at each gate.

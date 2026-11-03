@@ -175,7 +175,7 @@ solution; they apply directly to a zero-trust submission:
 - NIST AI 600-1, Generative AI Profile —
   <https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf>
 - OWASP Machine Learning Security Top 10 —
-  <https://owasp.org/www-project-machine-learning-security-top-10/>
+  <https://owasp.org/projects/machine-learning-security-top-ten>
 - MITRE ATLAS — <https://atlas.mitre.org/>
 - VeriSwarm Trust Center (practitioner example of a published
   trust posture) — <https://veriswarm.ai/trust>
