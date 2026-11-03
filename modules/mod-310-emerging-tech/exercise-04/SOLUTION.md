@@ -125,5 +125,4 @@ From the module SOLUTION's "common mistakes graders see":
 - OWASP Machine Learning Security Top 10: <https://owasp.org/www-project-machine-learning-security-top-10/>
 - MITRE ATLAS: <https://atlas.mitre.org/>
 - Companion in this module: [`../exercise-01/SOLUTION.md`](../exercise-01/SOLUTION.md) — the evaluation feeds the maturity axis of the radar.
-
-<!-- needs-research: cite the specific AI RMF function ("Govern" / "Map" / "Measure" / "Manage") and playbook subcategory that a responsible-AI evaluation should map to, once the current NIST AI RMF 1.0 playbook contents can be quoted directly. -->
+- NIST AI RMF Playbook (hosted at the AI Resource Center): <https://airc.nist.gov/airmf-resources/playbook/>. A responsible-AI vendor/OSS evaluation most directly lands under **GOVERN 6.1** (policies for AI risks from third-party entities) and **GOVERN 6.2** (contingency planning for third-party failures); evaluations of the tool's actual output quality land under **MEASURE 2.7** (security / red-team), **MEASURE 2.9** (explainability), and **MEASURE 2.11** (fairness / harmful bias) depending on which risk the tool targets.

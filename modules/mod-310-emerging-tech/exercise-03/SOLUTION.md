@@ -39,9 +39,12 @@ affects — not "we can do quantum things."
 
 For a post-quantum-cryptography migration, "easier" is often "the
 organization can honestly claim readiness against a defined threat
-model" — not a performance win.
-
-<!-- needs-research: cite the current NIST post-quantum-cryptography standards page and the timeline for algorithm selection once a vetted link is available. -->
+model" — not a performance win. The defined threat model and
+candidate primitives live on the [NIST Post-Quantum Cryptography
+project page](https://csrc.nist.gov/projects/post-quantum-cryptography);
+NIST finalized the first three standards — FIPS 203 (ML-KEM), FIPS 204
+(ML-DSA), and FIPS 205 (SLH-DSA) — on [August 13, 2024](https://www.nist.gov/news-events/news/2024/08/nist-releases-first-3-finalized-post-quantum-encryption-standards),
+with additional algorithms (e.g., HQC, FN-DSA) still under selection.
 
 ### 2b. The "harder" list
 
@@ -126,5 +129,5 @@ From the module SOLUTION's "common mistakes graders see":
 - Learning exercise: [`lessons/mod-310-emerging-tech/exercises/exercise-3.md`](https://github.com/ai-infra-curriculum/ai-infra-architect-learning/blob/main/lessons/mod-310-emerging-tech/exercises/exercise-3.md)
 - Module-level architect-tier framing: [`../SOLUTION.md`](../SOLUTION.md) §"Tech-debt impact analysis (exercise 03)"
 - Companion in this module: [`../exercise-05/SOLUTION.md`](../exercise-05/SOLUTION.md) — the recommendation flows into the multi-year roadmap.
-
-<!-- needs-research: cite the current NIST post-quantum-cryptography standardization page (https://csrc.nist.gov/projects/post-quantum-cryptography) and any authoritative "migration cost out" framing (e.g., published capability-portfolio or option-value analyses) once vetted links are available. -->
+- NIST Post-Quantum Cryptography standardization project: <https://csrc.nist.gov/projects/post-quantum-cryptography> — authoritative source for finalized standards (FIPS 203/204/205, August 13, 2024) and the ongoing selection of backup algorithms.
+- Robert G. Cooper, ["The Stage-Gate Idea-to-Launch System"](https://onlinelibrary.wiley.com/doi/full/10.1002/9781444316568.wiem05014), Wiley International Encyclopedia of Marketing — used here for the capability-portfolio framing in which a bet's *cost out* is weighed against its *option value* at each gate.

@@ -134,5 +134,4 @@ From the module SOLUTION's "common mistakes graders see":
 - MITRE ATLAS: <https://atlas.mitre.org/>
 - Companion in this module: [`../exercise-01/SOLUTION.md`](../exercise-01/SOLUTION.md), [`../exercise-02/SOLUTION.md`](../exercise-02/SOLUTION.md), [`../exercise-03/SOLUTION.md`](../exercise-03/SOLUTION.md), [`../exercise-04/SOLUTION.md`](../exercise-04/SOLUTION.md) — this exercise integrates all of them.
 - Upstream long-horizon frame (per module SOLUTION): ``principal-engineer/mod-505-long-term-technical-bets`` and ``principal-architect/mod-602-industry-standards``.
-
-<!-- needs-research: cite the specific NIST AI RMF playbook subcategories that a capability-anchored roadmap should map to, once the current NIST AI RMF 1.0 playbook contents can be quoted directly. -->
+- NIST AI RMF Playbook (hosted at the AI Resource Center): <https://airc.nist.gov/airmf-resources/playbook/>. For a capability-anchored roadmap, line items most naturally map to **GOVERN 1.3** (determining the needed level of risk-management activity against the organization's risk tolerance), **GOVERN 1.6** (inventorying AI systems and resourcing them according to risk priorities), and **GOVERN 1.7** (processes for safely decommissioning AI systems) — i.e., the AI RMF subcategories that are themselves stated as capabilities, not tools.

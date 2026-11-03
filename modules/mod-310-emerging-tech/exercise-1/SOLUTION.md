@@ -33,9 +33,7 @@ architect chooses one shape and holds to it — mixing shapes across
 updates destroys comparability quarter-over-quarter.
 
 Rings, if used, follow the widely-cited *adopt / trial / assess / hold*
-convention.
-
-<!-- needs-research: cite the ThoughtWorks Technology Radar methodology (the "adopt/trial/assess/hold" ring definitions and the FAQ description of how items move between rings) once a vetted link is available. -->
+convention; see the [ThoughtWorks Technology Radar FAQ](https://www.thoughtworks.com/en-us/radar/faq) for the canonical ring definitions and the rule that a blip only reaches Trial after production experience.
 
 ### 2b. Placement rationale
 
@@ -105,5 +103,4 @@ From the module SOLUTION's "common mistakes graders see":
 - Learning exercise: [`lessons/mod-310-emerging-tech/exercises/exercise-1.md`](https://github.com/ai-infra-curriculum/ai-infra-architect-learning/blob/main/lessons/mod-310-emerging-tech/exercises/exercise-1.md)
 - Module-level architect-tier framing: [`../SOLUTION.md`](../SOLUTION.md) §"Emerging-tech radar (exercise 01)"
 - Companion in this module: [`../exercise-04/SOLUTION.md`](../exercise-04/SOLUTION.md) — the vendor / OSS evaluation framework feeds the maturity axis of this radar.
-
-<!-- needs-research: cite the ThoughtWorks Technology Radar public volumes as the canonical example of the ring-based radar shape and its cadence, once a vetted link is available. -->
+- ThoughtWorks Technology Radar (public volumes, twice-yearly) — canonical example of the ring-based radar shape and cadence: <https://www.thoughtworks.com/en-us/radar> and the methodology FAQ at <https://www.thoughtworks.com/en-us/radar/faq>.
