@@ -194,7 +194,7 @@ Drawn directly from the module rationale's "common mistakes":
 - NIST AI 600-1, Generative AI Profile —
   <https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf>
 - OWASP Machine Learning Security Top 10 —
-  <https://owasp.org/www-project-machine-learning-security-top-10/>
+  <https://owasp.org/projects/machine-learning-security-top-ten>
 - MITRE ATLAS — <https://atlas.mitre.org/>
 - VeriSwarm Trust Center (example practitioner data-governance
   posture) — <https://veriswarm.ai/trust>

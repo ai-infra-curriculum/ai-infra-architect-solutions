@@ -264,7 +264,7 @@ the roadmap-integration deliverable:
 - NIST AI Risk Management Framework (AI RMF 1.0) —
   <https://www.nist.gov/itl/ai-risk-management-framework>
 - OWASP Machine Learning Security Top 10 —
-  <https://owasp.org/www-project-machine-learning-security-top-10/>
+  <https://owasp.org/projects/machine-learning-security-top-ten>
 - MITRE ATLAS — <https://atlas.mitre.org/>
 - Module-level rationale: [`../SOLUTION.md`](../SOLUTION.md),
   §"Roadmap integration (exercise 05)"

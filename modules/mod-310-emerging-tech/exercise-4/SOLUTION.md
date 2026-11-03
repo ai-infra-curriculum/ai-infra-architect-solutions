@@ -124,5 +124,5 @@ From the module SOLUTION's "common mistakes graders see":
 - NIST AI Risk Management Framework: <https://www.nist.gov/itl/ai-risk-management-framework>
 - OWASP Machine Learning Security Top 10: <https://owasp.org/projects/machine-learning-security-top-ten>
 - MITRE ATLAS: <https://atlas.mitre.org/>
-- Companion in this module: [`../exercise-01/SOLUTION.md`](../exercise-01/SOLUTION.md) — the evaluation feeds the maturity axis of the radar.
+- Companion in this module: [`../exercise-1/SOLUTION.md`](../exercise-1/SOLUTION.md) — the evaluation feeds the maturity axis of the radar.
 - NIST AI RMF Playbook (hosted at the AI Resource Center): <https://airc.nist.gov/airmf-resources/playbook/>. A responsible-AI vendor/OSS evaluation most directly lands under **GOVERN 6.1** (policies for AI risks from third-party entities) and **GOVERN 6.2** (contingency planning for third-party failures); evaluations of the tool's actual output quality land under **MEASURE 2.7** (security / red-team), **MEASURE 2.9** (explainability), and **MEASURE 2.11** (fairness / harmful bias) depending on which risk the tool targets.

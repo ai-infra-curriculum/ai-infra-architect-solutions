@@ -278,6 +278,6 @@ Specialized from the module-level "common mistakes graders see":
 - Microsoft Azure Well-Architected Framework — Reliability —
   <https://learn.microsoft.com/en-us/azure/well-architected/reliability/>
 - OWASP Machine Learning Security Top 10 —
-  <https://owasp.org/www-project-machine-learning-security-top-10/>
+  <https://owasp.org/projects/machine-learning-security-top-ten>
 - MITRE ATLAS — <https://atlas.mitre.org/>
 - Module-level rationale: `../SOLUTION.md`
