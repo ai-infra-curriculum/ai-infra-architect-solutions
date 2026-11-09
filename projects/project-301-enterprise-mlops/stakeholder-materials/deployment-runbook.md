@@ -504,7 +504,7 @@ kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernete
 kubectl get pods -n kube-system -l app=ebs-csi-controller
 
 # Install Metrics Server (for HPA)
-kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+kubectl apply -f https://release-assets.githubusercontent.com/github-production-release-asset/92132038/03f1bdd8-7ea8-41a2-bef8-410b6957be23?sp=r&sv=2018-11-09&sr=b&spr=https&se=2026-11-09T14%3A38%3A03Z&rscd=attachment%3B+filename%3Dcomponents.yaml&rsct=application%2Foctet-stream&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2026-11-09T13%3A37%3A59Z&ske=2026-11-09T14%3A38%3A03Z&sks=b&skv=2018-11-09&sig=ytE%2FKKroU80fkUf%2F%2FpLQGRLC7iFW3C5BzRFz9rzDwJs%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc5NDIzMzA5OCwibmJmIjoxNzk0MjMyNzk4LCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.Ccn_HrqAm4p5lPv4VDZCgj-uHZ5p-Wak_JFJYH5cNWw&response-content-disposition=attachment%3B%20filename%3Dcomponents.yaml&response-content-type=application%2Foctet-stream
 
 # Verify
 kubectl get deployment metrics-server -n kube-system
@@ -815,8 +815,8 @@ spec:
 cd kubernetes/kserve/
 
 # Install KServe CRDs
-kubectl apply -f https://github.com/kserve/kserve/releases/download/v0.11.0/kserve.yaml
-kubectl apply -f https://github.com/kserve/kserve/releases/download/v0.11.0/kserve-runtimes.yaml
+kubectl apply -f https://release-assets.githubusercontent.com/github-production-release-asset/178075572/f2d73b0b-c064-4909-87a9-833838ffe50d?sp=r&sv=2018-11-09&sr=b&spr=https&se=2026-11-09T14%3A48%3A05Z&rscd=attachment%3B+filename%3Dkserve.yaml&rsct=application%2Foctet-stream&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2026-11-09T13%3A47%3A43Z&ske=2026-11-09T14%3A48%3A05Z&sks=b&skv=2018-11-09&sig=8dUa%2FfPWvSIckU%2FTWrS66%2FdePk1JtpyGD6gq0v5DMWM%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc5NDIzMzEzMCwibmJmIjoxNzk0MjMyODMwLCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.L7m8ETOhAk6_bdb1JU3t61ziNv0p4BY7NjUOkeuRdes&response-content-disposition=attachment%3B%20filename%3Dkserve.yaml&response-content-type=application%2Foctet-stream
+kubectl apply -f https://release-assets.githubusercontent.com/github-production-release-asset/178075572/d5b93ed9-6e1e-4ccb-b9b1-bd893b1f742d?sp=r&sv=2018-11-09&sr=b&spr=https&se=2026-11-09T14%3A38%3A46Z&rscd=attachment%3B+filename%3Dkserve-runtimes.yaml&rsct=application%2Foctet-stream&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2026-11-09T13%3A37%3A54Z&ske=2026-11-09T14%3A38%3A46Z&sks=b&skv=2018-11-09&sig=aGPmCsLC9aYIs7C2NICr6ywI8nAulfA%2Foj1dZqxl%2BNQ%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc5NDIzMzEzMSwibmJmIjoxNzk0MjMyODMxLCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.-wB-GELMiB7S1yvb6CHiuycwYR7qU407Slny6DheHC4&response-content-disposition=attachment%3B%20filename%3Dkserve-runtimes.yaml&response-content-type=application%2Foctet-stream
 
 # Verify CRDs
 kubectl get crd | grep kserve
